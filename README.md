@@ -1,6 +1,6 @@
 # Karteikarten-Trainer
-Current-version: 0.1.0
-Android - Kotlin - MVVM Architecture - Index cards trainer
+Current-version: 0.1.0\
+Android - Kotlin - MVVM Architecture - Index cards trainer\
 Language-support: ENG, GER
 
 This app is designed to help and motivate people train index cards. 
