@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">IndexCardTrainer</string>
+    <string name="home">Home</string>
+    <string name="cards">Cards</string>
+    <string name="your_rank">Your rank</string>
+    <string name="show_cards">Show cards</string>
+    <string name="training">Training</string>
+    <string name="history">History</string>
+    <string name="start_training">Start training</string>
+    <string name="view_statistics">View statistics</string>
+    <string name="trainings_history">Trainings history</string>
+    <string name="trainings_result">Trainings result</string>
+    <string name="_continue">Continue</string>
+    <string name="your_cards">Your cards</string>
+    <string name="total_cards">total cards</string>
+    <string name="sort_by">sort by</string>
+
+    <string name="motivation_text_good_job_go_on">Good job, go on!</string>
+    <string name="motivation_text_correct_answer">Correct answer</string>
+    <string name="motivation_text_streak_detected">Streak detected, double points!</string>
+
+    <string name="days_since_last_training">Days since last training</string>
+    <string name="correct_answers">Correct answers</string>
+    <string name="wrong_answers">Wrong answers</string>
+    <string name="promotion">Promotion</string>
+    <string name="promotion_text">Good job, you got promoted! Your new Rank:</string>
+
+    <string name="creation">Creation</string>
+    <string name="category">Category</string>
+    <string name="categories">Categories</string>
+    <string name="alphabetically">Alphabetically</string>
+
+    <string name="translate_the_following_word">Translate the following word</string>
+    <string name="or">Or</string>
+
+    <string name="cancel">Cancel</string>
+
+    <string name="add_card">Add Card</string>
+    <string name="add_cards">Add Cards</string>
+    <string name="details">Details</string>
+
+    <string name="add_more">Add more</string>
+    <string name="edit_card">Edit Card</string>
+    <string name="save_card">Save card</string>
+    <string name="save_cards">Save cards</string>
+    <string name="delete_card">Delete card</string>
+    <string name="delete_confirmation_text">Are you sure that you want to delete that index card?</string>
+
+    <string name="word">Word</string>
+    <string name="translation">Translation</string>
+    <string name="total_attempts">Total attempts</string>
+    <string name="times_correct_answered">Times correct answered</string>
+    <string name="correct_answered_streak">Correct answered streak</string>
+
+    <string name="trainings_config">Trainings config</string>
+    <string name="trainings_config_text">Select the cards and/or categories you want to train</string>
+    <string name="no_cards_recently_failed">No recently failed cards</string>
+
+    <string name="no_cards_yet_title">No cards created yet…</string>
+    <string name="no_cards_yet_text">Add cards by clicking the "+" Button</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+    <string name="rank_recruit">Recruit</string>
+    <string name="rank_private">Private</string>
+    <string name="rank_private_first_class">Private First Class</string>
+    <string name="rank_specialist">Specialist</string>
+    <string name="rank_corporal">Corporal</string>
+    <string name="rank_sergeant">Sergeant</string>
+    <string name="rank_staff_sergeant">Staff Sergeant</string>
+    <string name="rank_master_sergeant">Master Sergeant</string>
+    <string name="rank_major">Major</string>
+
+    <string name="progress">Progress</string>
+    <string name="rubber_dots_earned">Rubber dots earned</string>
+    <string name="current_multiplicator">Current multiplicator</string>
+    <string name="check">Check</string>
+
+</resources>

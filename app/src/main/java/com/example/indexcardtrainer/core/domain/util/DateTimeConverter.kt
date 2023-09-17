@@ -1,0 +1,11 @@
+package com.example.indexcardtrainer.core.domain.util
+
+import java.time.Instant
+import java.time.LocalDateTime
+import java.util.TimeZone
+
+object DateTimeConverter {
+    fun parseDateTime(timestamp : Long) : LocalDateTime {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(timestamp), TimeZone.getDefault().toZoneId())
+    }
+}

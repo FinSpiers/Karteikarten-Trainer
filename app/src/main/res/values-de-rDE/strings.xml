@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IndexCardTrainer</string>
+    <string name="home">Start</string>
+    <string name="cards">Karten</string>
+
+    <string name="history">Verlauf</string>
+    <string name="your_rank">Dein Rang</string>
+    <string name="show_cards">Karten anzeigen</string>
+    <string name="training">Training</string>
+    <string name="start_training">Training starten</string>
+    <string name="view_statistics">Statistiken anzeigen</string>
+    <string name="trainings_history">Trainings verlauf</string>
+    <string name="trainings_result">Trainingsergebnis</string>
+    <string name="_continue">Weiter</string>
+    <string name="your_cards">Deine Karten</string>
+    <string name="total_cards">Karten insgesamt</string>
+    <string name="sort_by">Sortieren nach</string>
+
+    <string name="motivation_text_good_job_go_on">Gut gemacht, weiter so!</string>
+    <string name="motivation_text_correct_answer">Richtige Antwort</string>
+    <string name="motivation_text_streak_detected">Folge erkannt, doppelte Punkte!</string>
+    <string name="days_since_last_training">Tage seitdem letzten Training</string>
+
+    <string name="correct_answers">Richtige Antworten</string>
+    <string name="wrong_answers">Falsche Antworten</string>
+
+
+    <string name="promotion">Beförderung</string>
+    <string name="promotion_text">Gute Arbeit, du wurdest befördert! Dein neuer Rang:</string>
+
+    <string name="creation">Erstellung</string>
+    <string name="category">Kategorie</string>
+    <string name="categories">Kategorien</string>
+    <string name="alphabetically">Alphabetisch</string>
+    <string name="or">Oder</string>
+
+    <string name="translate_the_following_word">Übersetze das folgende Wort</string>
+
+    <string name="cancel">Abbrechen</string>
+    <string name="details">Details</string>
+
+    <string name="add_card">Karte hinzufügen</string>
+    <string name="add_cards">Karten hinzufügen</string>
+
+    <string name="add_more">Mehrere hinzufügen</string>
+    <string name="edit_card">Karte bearbeiten</string>
+
+    <string name="save_card">Karte speichern</string>
+    <string name="save_cards">Karten speichern</string>
+
+    <string name="delete_card">Karte löschen</string>
+    <string name="delete_confirmation_text">Karte sicher endgültig löschen?</string>
+
+    <string name="word">Wort</string>
+    <string name="translation">Übersetzung</string>
+    <string name="total_attempts">Versuche insgesamt</string>
+    <string name="times_correct_answered">Anzahl richtig beantwortet</string>
+    <string name="correct_answered_streak">In folge richtig beantwortet</string>
+
+    <string name="trainings_config">Trainings Einstellungen</string>
+    <string name="trainings_config_text">Wähle Karten und/oder Kategorien zum Trainieren aus</string>
+    <string name="no_cards_recently_failed">Keine kürzlich falsch beantworteten Karten</string>
+
+    <string name="no_cards_yet_title">Es gibt noch keine Karten..</string>
+    <string name="no_cards_yet_text">Erstelle Karten durch Klicken auf den "+" Knopf</string>
+
+    <string name="edit">Bearbeiten</string>
+    <string name="delete">Löschen</string>
+
+    <string name="rank_recruit">Rekrut</string>
+    <string name="rank_private">Schütze</string>
+    <string name="rank_private_first_class">Schütze erster Klasse</string>
+    <string name="rank_specialist">Spezialist</string>
+    <string name="rank_corporal">Unteroffizier</string>
+    <string name="rank_sergeant">Unterfeldwebel</string>
+    <string name="rank_staff_sergeant">Feldwebel</string>
+    <string name="rank_master_sergeant">Oberst Feldwebel</string>
+    <string name="rank_major">General</string>
+
+    <string name="progress">Fortschritt</string>
+    <string name="rubber_dots_earned">Gummipunkte erhalten</string>
+    <string name="current_multiplicator">Aktueller Multiplizierer</string>
+    <string name="check">Überprüfen</string>
+</resources>
