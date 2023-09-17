@@ -27,5 +27,5 @@ It's core features are:
   - shows/tracks info about recorded trainings
   - gives a trend based on the latest trainingslogs
 
-- Trainings-Statistics:
+- Trainings-Statistics: (Not implemented yet)
   - Visualises data from trainingslogs to give the user a quick overview about theire trainings process
