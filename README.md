@@ -1,11 +1,12 @@
 # Karteikarten-Trainer
-Current-version: 0.1.0\
-Android - Kotlin - MVVM Architecture - Index cards trainer\
-Language-support: ENG, GER
+Android - Kotlin - MVVM Architecture - Index cards trainer
 
 This app is designed to help and motivate people train index cards. 
 During trainings process users can receive rubber dots for successful answers, increasing theire user rank.
 Multipliers for rubber dots are applied on correct answered streaks to let the user rank up even faster.
+
+Current-version: 0.1.0\
+Language-support: ENG, GER
    
 It's core features are:
 - User Rank System
