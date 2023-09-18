@@ -2,6 +2,7 @@ package com.example.indexcardtrainer.di
 
 import android.app.Application
 import android.content.Context
+import androidx.compose.material3.SnackbarHostState
 import androidx.room.Room
 import com.example.indexcardtrainer.core.data.database.LocalDatabase
 import com.example.indexcardtrainer.core.data.repository.CardsRepositoryImpl
@@ -29,6 +30,12 @@ object AppModule {
     @Provides
     fun provideContext(app : Application) : Context {
         return app
+    }
+
+    @Provides
+    @Singleton
+    fun provideSnackbarHostState() : SnackbarHostState {
+        return SnackbarHostState()
     }
 
     @Provides

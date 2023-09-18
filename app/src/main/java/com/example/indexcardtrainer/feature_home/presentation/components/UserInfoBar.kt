@@ -33,7 +33,9 @@ import com.example.indexcardtrainer.R
 fun UserInfoBar(userRank: String, userRubberDots: Int, imageResId : Int?) {
     val infoSectionToggled = remember { mutableStateOf(false) }
     val infoIconTint = if (infoSectionToggled.value) MaterialTheme.colorScheme.outlineVariant else MaterialTheme.colorScheme.onTertiaryContainer
-    Column(modifier = Modifier.padding(2.dp).background(MaterialTheme.colorScheme.tertiaryContainer)) {
+    Column(modifier = Modifier.padding(2.dp).background(
+        MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.shapes.medium
+    )) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -78,11 +80,16 @@ fun UserInfoBar(userRank: String, userRubberDots: Int, imageResId : Int?) {
             Row(modifier = Modifier.fillMaxWidth().padding(start = 64.dp, end = 8.dp, bottom = 8.dp), horizontalArrangement = Arrangement.End) {
                 Box(
                     modifier = Modifier
-                        .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.small)
+                        .border(1.dp, MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
+                        //.background(MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
                         .padding(8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Get rubber dots by training your cards! Get even more if you consecutively answer correct!")
+                    Text(
+                        text = "Get rubber dots by training your cards! Get even more if you consecutively answer correct!",
+                        color = MaterialTheme.colorScheme.onTertiary,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }

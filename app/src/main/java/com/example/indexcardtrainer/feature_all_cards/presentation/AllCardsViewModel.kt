@@ -1,11 +1,16 @@
 package com.example.indexcardtrainer.feature_all_cards.presentation
 
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.indexcardtrainer.R
 import com.example.indexcardtrainer.core.domain.model.IndexCard
 import com.example.indexcardtrainer.core.domain.repository.CardsRepository
+import com.example.indexcardtrainer.core.domain.repository.UserRepository
 import com.example.indexcardtrainer.feature_all_cards.domain.SortingType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -15,7 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AllCardsViewModel @Inject constructor(
-    private val cardsRepository: CardsRepository
+    private val userRepository: UserRepository,
+    private val cardsRepository: CardsRepository,
+    private val snackbarHostState: SnackbarHostState
 ) : ViewModel() {
     val sortingType : MutableState<SortingType> = mutableStateOf(SortingType.ByCreation)
     val shouldShowAddCardsDialog = mutableStateOf(false)
@@ -30,7 +37,7 @@ class AllCardsViewModel @Inject constructor(
         this.sortingType.value = sortingType
         cards.value = when(sortingType) {
             is SortingType.ByCreation -> {
-                cards.value.sortedBy { it.timeStamp }.toMutableList()
+                cards.value.sortedBy { it.timeStamp }.reversed().toMutableList()
             }
             is SortingType.ByCategory -> {
                 cards.value.sortedBy { it.category }.toMutableList()
@@ -104,9 +111,24 @@ class AllCardsViewModel @Inject constructor(
     }
 
     fun deleteIndexCard(indexCard: IndexCard) {
+        val index = cards.value.indexOf(indexCard)
         cards.value = cards.value.toMutableList().apply { remove(indexCard) }
         viewModelScope.launch(Dispatchers.IO) {
             cardsRepository.deleteIndexCard(indexCard)
+            val result = snackbarHostState.showSnackbar(
+                message = userRepository.context.getString(R.string.card_deleted),
+                actionLabel = userRepository.context.getString(R.string.undo),
+                duration = SnackbarDuration.Long
+            )
+            when(result) {
+                SnackbarResult.ActionPerformed -> {
+                    cards.value = cards.value.toMutableList().apply { add(index, indexCard) }
+                    viewModelScope.launch(Dispatchers.IO) {
+                        cardsRepository.upsertIndexCard(indexCard)
+                    }
+                }
+                SnackbarResult.Dismissed -> snackbarHostState.currentSnackbarData?.dismiss()
+            }
         }
     }
 }

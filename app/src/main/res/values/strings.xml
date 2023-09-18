@@ -60,6 +60,8 @@
     <string name="no_cards_yet_text">Add cards by clicking the "+" Button</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="card_deleted">Card deleted</string>
+    <string name="undo">Undo</string>
 
     <string name="rank_recruit">Recruit</string>
     <string name="rank_private">Private</string>
