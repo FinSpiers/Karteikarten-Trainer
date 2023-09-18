@@ -32,7 +32,7 @@ interface CardDao {
     suspend fun deleteIndexCard(indexCard: IndexCard)
 
     @Transaction
-    @Query("SELECT * FROM IndexCards WHERE isRecentlyFailed='true'")
+    @Query("SELECT * FROM IndexCards WHERE isRecentlyFailed=${true}")
     suspend fun getRecentlyFailedCards() : List<IndexCard>
 
 }
