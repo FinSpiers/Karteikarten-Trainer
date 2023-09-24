@@ -1,4 +1,4 @@
-package com.example.indexcardtrainer.presentation
+package com.example.indexcardtrainer.feature_home.presentation
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider

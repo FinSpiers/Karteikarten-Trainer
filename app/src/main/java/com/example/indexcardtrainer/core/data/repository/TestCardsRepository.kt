@@ -12,23 +12,26 @@ class TestCardsRepository : CardsRepository {
     val cards = arrayListOf(
         IndexCard(
             id = 1,
-            title = "Test",
-            solution = "test"
+            title = "A",
+            solution = "A",
+            timeStamp = 1
         ),
         IndexCard(
             id = 2,
-            title = "Test2",
-            solution = "test2",
+            title = "C",
+            solution = "C",
             category = "Test",
-            isRecentlyFailed = true
+            isRecentlyFailed = true,
+            timeStamp = 2
         ),
         IndexCard(
             id = 3,
-            title = "Test3",
-            solution = "test3",
+            title = "B",
+            solution = "B",
             category = "Test",
             correctAnsweredStreak = 7,
             timesCorrectAnswered = 7,
+            timeStamp = 3
         )
     )
     val categories = listOf(
