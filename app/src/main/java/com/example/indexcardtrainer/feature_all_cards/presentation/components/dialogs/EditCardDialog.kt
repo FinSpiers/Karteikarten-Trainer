@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -45,14 +46,19 @@ fun EditCardDialog(
             onDismissRequest = { shouldShowEditCardDialog.value = false },
             properties = DialogProperties(usePlatformDefaultWidth = false)
         ) {
-            Column(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.large), horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.large)
+                    .padding(32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(text = stringResource(id = R.string.edit_card), style = MaterialTheme.typography.displaySmall, color = MaterialTheme.colorScheme.onSurface)
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(32.dp))
                 AddEditCardRow(state = editCardState)
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(32.dp))
                 Button(onClick = {
                     if (editCardState.value.text.isNotBlank() && editCardState.value.translation.isNotBlank()) {
-                        Log.e("TEST", "Tried to save ${editCardState.value}")
                         selectedCard?.apply {
                             title = editCardState.value.text
                             solution = editCardState.value.translation
@@ -62,7 +68,11 @@ fun EditCardDialog(
                         shouldShowEditCardDialog.value = false
                     }
                 }) {
-                    Text(text = stringResource(id = R.string.save_card))
+                    Text(
+                        text = stringResource(id = R.string.save_card),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                        style = MaterialTheme.typography.titleMedium
+                    )
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
