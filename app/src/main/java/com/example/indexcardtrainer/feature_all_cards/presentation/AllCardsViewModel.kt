@@ -27,7 +27,6 @@ class AllCardsViewModel @Inject constructor(
     val sortingType : MutableState<SortingType> = mutableStateOf(SortingType.ByCreation)
     val shouldShowAddCardsDialog = mutableStateOf(false)
     val shouldShowEditCardDialog = mutableStateOf(false)
-    val shouldShowDeleteAlertDialog = mutableStateOf(false)
     val shouldShowCardDetailsDialog = mutableStateOf(false)
 
     val cards : MutableState<List<IndexCard>> = mutableStateOf(emptyList())
@@ -97,8 +96,7 @@ class AllCardsViewModel @Inject constructor(
                 shouldShowEditCardDialog.value = true
             }
             is CardEvent.CardDeletion -> {
-                selectedCard = cardEvent.card
-                shouldShowDeleteAlertDialog.value = true
+                deleteIndexCard(cardEvent.card)
             }
             is CardEvent.ChangeSortingType -> {
                 onSortingChange(cardEvent.sortingType)
@@ -110,7 +108,7 @@ class AllCardsViewModel @Inject constructor(
         }
     }
 
-    fun deleteIndexCard(indexCard: IndexCard) {
+    private fun deleteIndexCard(indexCard: IndexCard) {
         val index = cards.value.indexOf(indexCard)
         cards.value = cards.value.toMutableList().apply { remove(indexCard) }
         viewModelScope.launch(Dispatchers.IO) {

@@ -24,9 +24,7 @@ import com.example.indexcardtrainer.ui.theme.IndexCardTrainerTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AllCardsScreen(viewModel: AllCardsViewModel = hiltViewModel()) {
-    /**************** Dialogs ********************************************************/
-    DeleteCardDialog(shouldShowAlertDialog = viewModel.shouldShowDeleteAlertDialog, viewModel::deleteIndexCard, viewModel::getSelectedCard, viewModel::resetSelectedCard)
-
+    /***************************** Dialogs ************************************************/
     EditCardDialog(shouldShowEditCardDialog = viewModel.shouldShowEditCardDialog, getSelectedCard = viewModel::getSelectedCard, viewModel::saveIndexCard, viewModel::resetSelectedCard)
 
     AddCardsDialog(shouldShow = viewModel.shouldShowAddCardsDialog, onCardEvent = viewModel::onCardEvent)
