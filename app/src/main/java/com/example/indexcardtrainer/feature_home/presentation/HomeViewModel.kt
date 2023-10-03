@@ -1,6 +1,9 @@
 package com.example.indexcardtrainer.feature_home.presentation
 
 import android.content.Context
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,19 +12,35 @@ import com.example.indexcardtrainer.core.domain.model.IndexCard
 import com.example.indexcardtrainer.core.domain.model.User
 import com.example.indexcardtrainer.core.domain.repository.CardsRepository
 import com.example.indexcardtrainer.core.domain.repository.UserRepository
-import com.example.indexcardtrainer.core.domain.util.*
+import com.example.indexcardtrainer.core.domain.util.RANK_CORPORAL
+import com.example.indexcardtrainer.core.domain.util.RANK_MAJOR
+import com.example.indexcardtrainer.core.domain.util.RANK_MASTER_SERGEANT
+import com.example.indexcardtrainer.core.domain.util.RANK_PRIVATE
+import com.example.indexcardtrainer.core.domain.util.RANK_PRIVATE_FIRST_CLASS
+import com.example.indexcardtrainer.core.domain.util.RANK_SERGEANT
+import com.example.indexcardtrainer.core.domain.util.RANK_SPECIALIST
+import com.example.indexcardtrainer.core.domain.util.RANK_STAFF_SERGEANT
+import com.example.indexcardtrainer.core.domain.util.RANK_STARTER
 import com.example.indexcardtrainer.core.presentation.navigation.NavigationEvent
 import com.example.indexcardtrainer.feature_home.presentation.states.CardSelectionState
 import com.example.indexcardtrainer.feature_home.presentation.states.CategorySelectionState
 import com.example.indexcardtrainer.feature_home.presentation.states.UserState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@OptIn(DelicateCoroutinesApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val snackbarHostState: SnackbarHostState
 ) : ViewModel() {
     var userData: User = User()
     private lateinit var allCards: List<IndexCard>
@@ -107,7 +126,14 @@ class HomeViewModel @Inject constructor(
                     cardsRepository.cardsToTrain =
                         cardSelectionStateList.filter { it.isSelected.value }.map { it.indexCard }
                     cardsRepository.onNavigationEvent(NavigationEvent.OnStartTrainingClick)
-                    resetSelection()
+
+                    viewModelScope.launch {
+                        delay(500L)
+                        resetSelection()
+                    }
+                }
+                else {
+                    onHomeEvent(HomeEvent.NoCardsSelected)
                 }
             }
             is HomeEvent.UserRankUp -> {
@@ -119,6 +145,36 @@ class HomeViewModel @Inject constructor(
                     userRepository.saveUserData(userData)
                 }
                 shouldShowUserRankUpDialog.value = true
+            }
+
+            HomeEvent.EmptyCards -> {
+                GlobalScope.launch {
+                    val snackbarResult = snackbarHostState.showSnackbar(
+                        message = userRepository.context.getString(R.string.no_cards_yet_title),
+                        actionLabel = userRepository.context.getString(R.string.create_now),
+                        withDismissAction = false,
+                        SnackbarDuration.Long
+                    )
+                    withContext(Dispatchers.Main) {
+                        when (snackbarResult) {
+                            SnackbarResult.ActionPerformed ->
+                                cardsRepository.onNavigationEvent(NavigationEvent.OnAllCardsClick)
+
+                            else -> Unit
+                        }
+                    }
+                }
+            }
+
+            HomeEvent.NoCardsSelected -> {
+                viewModelScope.launch {
+                    snackbarHostState.showSnackbar(
+                        message = userRepository.context.getString(R.string.no_cards_selected),
+                        actionLabel = null,
+                        withDismissAction = false,
+                        SnackbarDuration.Long
+                    )
+                }
             }
         }
 

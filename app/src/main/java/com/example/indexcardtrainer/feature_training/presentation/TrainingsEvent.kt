@@ -1,13 +1,13 @@
 package com.example.indexcardtrainer.feature_training.presentation
 
 sealed class TrainingsEvent {
-    object StartTraining : TrainingsEvent()
+    data object StartTraining : TrainingsEvent()
 
-    object CorrectAnswered : TrainingsEvent()
+    data object CorrectAnswered : TrainingsEvent()
 
-    object WrongAnswered : TrainingsEvent()
+    data object WrongAnswered : TrainingsEvent()
 
-    object NextCard : TrainingsEvent()
+    data object NextCard : TrainingsEvent()
 
-    object FinishTraining : TrainingsEvent()
+    data object FinishTraining : TrainingsEvent()
 }

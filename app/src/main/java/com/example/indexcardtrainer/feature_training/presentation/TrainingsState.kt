@@ -7,7 +7,7 @@ private val defaultCard = IndexCard(0,"", "")
 data class TrainingsState(
     val cards: List<IndexCard> = listOf(defaultCard),
     val currentIndexCard: IndexCard = defaultCard,
-    val timeUsedPerCard: List<Int> = cards.map { 0 },
+    val timeUsedPerCard: List<Int> = emptyList(),
     val currentCardCorrectAnswered: Boolean = false,
     val currentCardWrongAnswered: Boolean = false,
     val currentMultiplicator: Int = 1,

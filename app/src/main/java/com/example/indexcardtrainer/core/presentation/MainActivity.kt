@@ -40,28 +40,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     snackbarHost = { SnackbarHost(snackbarHostState) }
-                    /*
-                    bottomBar = {
-                        BreadCrumbNavigation(
-                            currentDestination = viewModel.currentDestination.value,
-                            onNavigationEvent = viewModel::onNavigationEvent,
-                        )
-                    }
-
-                     */
                 ) {
                     NavigationHost(navController = navController, modifier = Modifier.padding(bottom = it.calculateBottomPadding()))
                 }
             }
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun getOnBackInvokedDispatcher(): OnBackInvokedDispatcher {
-        val x =  super.getOnBackInvokedDispatcher()
-        x.registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT) {
-            viewModel.onNavigationEvent(NavigationEvent.OnBackClick)
-        }
-        return x
     }
 }

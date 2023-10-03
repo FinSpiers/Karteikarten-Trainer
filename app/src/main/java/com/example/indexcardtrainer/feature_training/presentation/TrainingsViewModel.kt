@@ -12,6 +12,7 @@ import com.example.indexcardtrainer.core.domain.repository.UserRepository
 import com.example.indexcardtrainer.core.presentation.navigation.NavigationEvent
 import com.example.indexcardtrainer.feature_training.domain.TrainingsLogEntry
 import com.example.indexcardtrainer.feature_training.domain.repository.TrainingsRepository
+import com.example.indexcardtrainer.feature_training.domain.util.Timer
 import com.example.indexcardtrainer.feature_training.presentation.TrainingsEvent.CorrectAnswered
 import com.example.indexcardtrainer.feature_training.presentation.TrainingsEvent.FinishTraining
 import com.example.indexcardtrainer.feature_training.presentation.TrainingsEvent.NextCard
@@ -22,6 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Instant
 import javax.inject.Inject
@@ -40,6 +42,7 @@ class TrainingsViewModel @Inject constructor(
 
     val shouldShowTrainingFinishedDialog = mutableStateOf(false)
     lateinit var user: User
+    private val timer : Timer = Timer()
 
     init {
         onTrainingEvent(StartTraining)
@@ -58,12 +61,7 @@ class TrainingsViewModel @Inject constructor(
         val timeUsedPerCardCopy = arrayListOf<Int>()
         timeUsedPerCardCopy.addAll(trainingsState.value.timeUsedPerCard)
 
-        if (index == 0) {
-            timeUsedPerCardCopy[index] = (Instant.now().epochSecond - trainingsState.value.startTime).toInt()
-        }
-        else {
-            timeUsedPerCardCopy[index] = (Instant.now().epochSecond - trainingsState.value.timeUsedPerCard.sum() - trainingsState.value.startTime).toInt()
-        }
+        timeUsedPerCardCopy.add(index, timer.timerRuntimeFlow.value.toInt())
         trainingsState.value = trainingsState.value.copy(
             timeUsedPerCard = timeUsedPerCardCopy
         )
@@ -71,24 +69,36 @@ class TrainingsViewModel @Inject constructor(
     }
 
     private fun randomizeCardOrder() {
-        if (trainingsState.value.cards.size < 2) { return }
-        val randomizedCards                 = mutableListOf<IndexCard>()
-        while (randomizedCards.size < trainingsState.value.cards.size) {
-            val newIndex                    = Random.nextInt(0, trainingsState.value.cards.size - 1)
-            val card                        = trainingsState.value.cards[newIndex]
-            if (!randomizedCards.contains(card)) {
-                randomizedCards.add(newIndex, card)
+        if (trainingsState.value.cards.size >= 2) {
+            for (i in 0 until trainingsState.value.cards.size) {
+                val randIndex = Random.nextInt(0, trainingsState.value.cards.size - 1)
+                val randSwapIndex = Random.nextInt(0, trainingsState.value.cards.size - 1)
+
+                trainingsState.value = trainingsState.value.copy(
+                    cards = swapCards(trainingsState.value.cards, randIndex, randSwapIndex)
+                )
             }
+            trainingsState.value = trainingsState.value.copy(
+                currentIndexCard = trainingsState.value.cards[0]
+            )
         }
-        trainingsState.value = trainingsState.value.copy(
-            cards = randomizedCards,
-            currentIndexCard = randomizedCards[0]
-        )
+    }
+
+    private fun swapCards(indexCards: List<IndexCard>, index : Int, swapIndex : Int) : List<IndexCard> {
+        val cards = arrayListOf<IndexCard>()
+        cards.addAll(indexCards)
+        if (index in indexCards.indices && swapIndex in indexCards.indices) {
+            val card = indexCards[index]
+            cards[index] = indexCards[swapIndex]
+            cards[swapIndex] = card
+            return cards
+        }
+        return indexCards
     }
 
     fun loadUserData() : User {
         lateinit var user : User
-        viewModelScope.launch {
+        runBlocking {
             user = userRepository.loadUserData()
         }
         return user
@@ -105,6 +115,7 @@ class TrainingsViewModel @Inject constructor(
     }
 
     private fun onTrainingStarted() {
+        timer.start()
         viewModelScope.launch {
             trainingsState.value = trainingsState.value.copy(
                 cards = cardsRepository.cardsToTrain,
@@ -120,6 +131,7 @@ class TrainingsViewModel @Inject constructor(
     }
 
     private fun onCardCorrectAnswered() {
+        timer.stop()
         calculateElapsedTime(trainingsState.value.currentIndexCard)
         trainingsState.value = trainingsState.value.copy(
             currentCardCorrectAnswered = true,
@@ -150,6 +162,7 @@ class TrainingsViewModel @Inject constructor(
     }
 
     private fun onCardWrongAnswered() {
+        timer.stop()
         calculateElapsedTime(trainingsState.value.currentIndexCard)
         trainingsState.value = trainingsState.value.copy(
             currentCardWrongAnswered = true,
@@ -173,6 +186,7 @@ class TrainingsViewModel @Inject constructor(
     }
 
     private fun onNextCard() {
+        timer.reset()
         val index =
             trainingsState.value.cards.indexOf(trainingsState.value.currentIndexCard)
         if (index < trainingsState.value.cards.size - 1) {
@@ -211,7 +225,7 @@ class TrainingsViewModel @Inject constructor(
                     cards = trainingsState.value.cards,
                     correctAnsweredCards = trainingsState.value.correctAnsweredCards,
                     timeUsedForEachCard = trainingsState.value.timeUsedPerCard,
-                    duration = trainingsState.value.duration,
+                    duration = trainingsState.value.timeUsedPerCard.sum().toLong(),
                     rubberDotsEarned = trainingsState.value.rubberDotsEarned
                 )
             )

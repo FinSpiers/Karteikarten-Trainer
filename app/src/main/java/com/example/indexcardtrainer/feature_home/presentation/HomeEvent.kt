@@ -14,5 +14,9 @@ sealed class HomeEvent {
 
     class UserRankUp(val rank: String) : HomeEvent()
 
-    object StartTraining : HomeEvent()
+    data object StartTraining : HomeEvent()
+
+    data object EmptyCards : HomeEvent()
+
+    data object NoCardsSelected : HomeEvent()
 }

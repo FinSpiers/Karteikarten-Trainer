@@ -16,14 +16,14 @@ class MainViewModel @Inject constructor(
     private val cardsRepository: CardsRepository,
     private val userRepository: UserRepository
 ) : ViewModel() {
-    var currentDestination  = mutableStateOf(Screen.HomeScreen.route)
+    private var currentDestination  = mutableStateOf(Screen.HomeScreen.route)
     lateinit var navController : NavHostController
 
     init {
         cardsRepository.onNavigationEvent = this::onNavigationEvent
     }
 
-    fun onNavigationEvent(navigationEvent: NavigationEvent) {
+    private fun onNavigationEvent(navigationEvent: NavigationEvent) {
         when(navigationEvent) {
             is NavigationEvent.OnHomeClick -> {
                 navigate(Screen.HomeScreen.route)
@@ -36,8 +36,6 @@ class MainViewModel @Inject constructor(
             }
             is NavigationEvent.OnTrainingsHistoryClick -> {
                 navigate(Screen.TrainingsHistoryScreen.route)
-            }
-            is NavigationEvent.OnBackClick -> {
             }
         }
     }

@@ -62,6 +62,11 @@
     <string name="delete">Delete</string>
     <string name="card_deleted">Card deleted</string>
     <string name="undo">Undo</string>
+    <string name="create_now">Create now</string>
+
+    <string name="back">Back</string>
+    <string name="no_trainings_recorded">No trainings recorded yet…</string>
+    <string name="no_cards_selected">No cards selected. Pick at least one card to start Training!</string>
 
     <string name="rank_recruit">Recruit</string>
     <string name="rank_private">Private</string>

@@ -202,6 +202,7 @@ fun TrainingsConfigBottomSheet(
             }
         }
     } else if (shouldShowBottomSheet.value && loadAllCards().isEmpty()) {
-        Toast.makeText(LocalContext.current, R.string.no_cards_yet_title, Toast.LENGTH_LONG).show()
+        //Toast.makeText(LocalContext.current, R.string.no_cards_yet_title, Toast.LENGTH_LONG).show()
+        onHomeEvent(HomeEvent.EmptyCards)
     }
 }
