@@ -38,3 +38,5 @@ val OrangeGray50 = Color(0xFFBF8240)
 val OrangeGray60 = Color(0xFFCC9266)
 val OrangeGray80 = Color(0xFFE6C3B3)
 val OrangeGray90 = Color(0xFFF2E4D9)
+
+val DarkGreen = Color(0xFF43A047)

@@ -33,9 +33,11 @@ import com.example.indexcardtrainer.R
 fun UserInfoBar(userRank: String, userRubberDots: Int, imageResId : Int?) {
     val infoSectionToggled = remember { mutableStateOf(false) }
     val infoIconTint = if (infoSectionToggled.value) MaterialTheme.colorScheme.outlineVariant else MaterialTheme.colorScheme.onTertiaryContainer
-    Column(modifier = Modifier.padding(2.dp).background(
-        MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.shapes.medium
-    )) {
+    Column(modifier = Modifier
+        .padding(2.dp)
+        .background(
+            MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.shapes.medium
+        )) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,13 +46,18 @@ fun UserInfoBar(userRank: String, userRubberDots: Int, imageResId : Int?) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = stringResource(id = R.string.your_rank))
-                Text(
-                    text = userRank,
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.padding(start = 8.dp, end = 4.dp),
-                    fontWeight = FontWeight.Bold
-                )
+                Column {
+                    Text(
+                        text = stringResource(id = R.string.your_rank),
+                        modifier = Modifier.padding(start = 8.dp)
+                    )
+                    Text(
+                        text = userRank,
+                        style = MaterialTheme.typography.titleLarge,
+                        modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
                 if (userRank != stringResource(id = R.string.rank_recruit) && imageResId != null) {
                     Image(painter = painterResource(id = imageResId), contentDescription = null, modifier = Modifier
                         .clip(CircleShape)
@@ -77,11 +84,17 @@ fun UserInfoBar(userRank: String, userRubberDots: Int, imageResId : Int?) {
             }
         }
         if (infoSectionToggled.value) {
-            Row(modifier = Modifier.fillMaxWidth().padding(start = 64.dp, end = 8.dp, bottom = 8.dp), horizontalArrangement = Arrangement.End) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 64.dp, end = 8.dp, bottom = 8.dp), horizontalArrangement = Arrangement.End) {
                 Box(
                     modifier = Modifier
-                        .border(1.dp, MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
-                        //.background(MaterialTheme.colorScheme.outlineVariant, MaterialTheme.shapes.small)
+                        .border(
+                            1.dp,
+                            MaterialTheme.colorScheme.outlineVariant,
+                            MaterialTheme.shapes.small
+                        )
+                        .background(MaterialTheme.colorScheme.tertiaryContainer, MaterialTheme.shapes.small)
                         .padding(8.dp),
                     contentAlignment = Alignment.Center
                 ) {
