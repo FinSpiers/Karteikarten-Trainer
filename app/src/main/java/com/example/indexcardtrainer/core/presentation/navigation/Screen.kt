@@ -1,8 +1,8 @@
 package com.example.indexcardtrainer.core.presentation.navigation
 
 sealed class Screen(var route : String) {
-    object HomeScreen : Screen("Home")
-    object AllCardsScreen : Screen("All cards")
-    object TrainingsScreen : Screen("Training")
-    object TrainingsHistoryScreen : Screen("Trainings history")
+    data object HomeScreen : Screen("Home")
+    data object AllCardsScreen : Screen("All cards")
+    data object TrainingsScreen : Screen("Training")
+    data object TrainingsHistoryScreen : Screen("Trainings history")
 }
