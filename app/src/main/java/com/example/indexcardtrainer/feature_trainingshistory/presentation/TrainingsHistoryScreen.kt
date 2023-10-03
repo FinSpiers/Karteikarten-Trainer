@@ -1,5 +1,7 @@
 package com.example.indexcardtrainer.feature_trainingshistory.presentation
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,6 +40,9 @@ fun TrainingsHistoryScreen(viewModel: TrainingsHistoryViewModel = hiltViewModel(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .background(MaterialTheme.colorScheme.surface, MaterialTheme.shapes.small)
+                    .border(1.dp, MaterialTheme.colorScheme.outline, MaterialTheme.shapes.small)
+                    .padding(8.dp)
             ) {
                 Text(
                     text = "${stringResource(id = R.string.days_since_last_training)}:",
@@ -50,7 +55,6 @@ fun TrainingsHistoryScreen(viewModel: TrainingsHistoryViewModel = hiltViewModel(
                     fontWeight = FontWeight.Bold
                 )
             }
-            Spacer(modifier = Modifier.height(8.dp))
         }
         if (viewModel.loadAllTrainingsLogEntries().isNotEmpty()) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {

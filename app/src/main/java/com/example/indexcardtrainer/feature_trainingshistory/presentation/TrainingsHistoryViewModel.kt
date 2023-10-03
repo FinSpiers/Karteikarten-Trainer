@@ -27,16 +27,23 @@ class TrainingsHistoryViewModel @Inject constructor(
             val trainingsLogEntries = trainingsRepository.loadAllTrainingsLogEntries().reversed()
             if (trainingsLogEntries.isNotEmpty()) {
                 val lastLog = trainingsLogEntries[0]
-                val lastTrainingDate = DateTimeConverter.parseDateTime(lastLog.timestamp).toLocalDate()
-                val now = DateTimeConverter.parseDateTime(Instant.now().epochSecond).toLocalDate()
+
+                // TODO: remove debug stuff later on
                 val timeDivSeconds = Instant.now().epochSecond - lastLog.timestamp
-                Log.e("TIME", DateTimeConverter.parseDateTime(lastLog.timestamp).toString())
-                Log.e("TIME", (timeDivSeconds / 60).toString())
+                val timeDivMinutes = timeDivSeconds / 60
+                val timeDivHours = timeDivMinutes / 60
+                val timeDivDays = timeDivHours / 24
+                Log.e("TIME", timeDivSeconds.toString())
+                Log.e("TIME", timeDivMinutes.toString())
+                Log.e("TIME", timeDivHours.toString())
+                Log.e("TIME", timeDivDays.toString())
+
                 daysSinceLastTraining =
                     ((Instant.now().epochSecond - lastLog.timestamp) / 3600 / 24).toInt()
             }
         }
         return daysSinceLastTraining
+
     }
 
     fun loadAllTrainingsLogEntries() : List<TrainingsLogEntry> {
